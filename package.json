@@ -1,0 +1,21 @@
+{
+  "name": "quinelaca",
+  "version": "1.0.0",
+  "description": "Quinela CA 2024",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.11.0",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "nodemon": "^3.1.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.11.0"
+  }
+}
