@@ -8,62 +8,83 @@ datasource db {
 }
 
 model fecfechas {
-  fecid      Int       @id @default(autoincrement())
-  fecnombre  String    @db.VarChar(255)
-  created_at DateTime? @db.Timestamp(0)
-  updated_at DateTime? @default(now()) @db.Timestamp(0)
-  feccurso   Boolean   @default(false)
-}
+  fecid       Int       @id @default(autoincrement())
+  fecnombre   String    @db.VarChar(255)
+  tornid      Int
+  fecmostrar  Boolean   @default(false)
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime  @default(now()) @db.Timestamp(0)
 
-model grugrupos {
-  gruid      Int       @id @default(autoincrement())
-  grugrupo   String    @db.VarChar(255)
-  created_at DateTime? @default(now()) @db.Timestamp(0)
-  updated_at DateTime? @default(now()) @db.Timestamp(0)
 }
 
 model parpartidos {
-  parid           Int       @id @default(autoincrement())
-  parlocal        Int
-  parlvisitante   Int
-  parfinalizado   Boolean   @default(false)
-  pargollocal     Int
-  pargolvisitante Int
-  parfecid        Int
-  pargrupo        Int
-  parganador      Int?
-  created_at      DateTime? @default(now()) @db.Timestamp(0)
-  updated_at      DateTime? @default(now()) @db.Timestamp(0)
+  partid         Int      @id @default(autoincrement())
+  fecid          Int
+  tornid         Int
+  parlocal       Int
+  parvisita      Int
+  pargoleslocal  Int?
+  pargolesvisita Int?
+  parganador     Int?
+  parfecha       DateTime?
+  created_at     DateTime @default(now()) @db.Timestamp(0)
+  updated_at     DateTime @default(now()) @db.Timestamp(0)
+  parfinalizado  Boolean  @default(false)
 }
 
-model preprediciones {
-  preid           Int       @id @default(autoincrement())
-  preusuid        Int
-  preparid        Int
-  prefinalizado   Boolean   @default(false)
-  pregollocal     Int?
-  pregolvisitante Int?
-  prepuntos       Int?
-  preganador      Int?
-  created_at      DateTime? @default(now()) @db.Timestamp(0)
-  updated_at      DateTime? @default(now()) @db.Timestamp(0)
-}
-
-model selseleccion {
+model selselecciones {
   selid          Int       @id @default(autoincrement())
   selnombre      String    @db.VarChar(255)
   selabreviacion String    @db.VarChar(255)
-  selescudo      String?   @db.VarChar(255)
-  created_at     DateTime? @default(now()) @db.Timestamp(0)
-  updated_at     DateTime  @default(now()) @db.Timestamp(0)
+  selimagen      String?   @db.VarChar(255)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @default(now()) @db.Timestamp(0)
 }
+
 
 model usuusuarios {
   usuid          Int       @id @default(autoincrement())
   usuusuario     String    @db.VarChar(255)
+  usucorreo      String    @db.VarChar(255)
   usucontrasenia String    @db.VarChar(255)
+  usuimagen      String    @db.VarChar(255)
   usutoken       String    @db.VarChar(255)
-  usunombre      String    @db.VarChar(255)
-  created_at     DateTime? @default(now()) @db.Timestamp(0)
+  created_at     DateTime? @db.Timestamp(0)
   updated_at     DateTime? @default(now()) @db.Timestamp(0)
+
+}
+
+model pruprediccionusuarios {
+  pruid          Int       @id @default(autoincrement())
+  usuid          Int
+  partid         Int
+  prugoleslocal  Int
+  prugolesvisita Int
+  pruganador     Int?
+  pruabierto     Boolean   @default(false)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @default(now()) @db.Timestamp(0)
+
+}
+
+model puupuntosusuarios {
+  puuid              Int       @id @default(autoincrement())
+  pruid              Int
+  puupuntostotal     Int
+  puupuntosmarcador  Int
+  puupuntosresultado Int
+  puupuntosgoles     Int
+  created_at         DateTime? @db.Timestamp(0)
+  updated_at         DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model tortorneos {
+  tornid             Int       @id @default(autoincrement())
+  tortorneo          String    @db.VarChar(255)
+  torimagen          String?   @db.VarChar(255)
+  torbanner          String?   @db.VarChar(255)
+  torcolorprincipal  String?   @db.VarChar(255)
+  torcolorsecundario String?   @db.VarChar(255)
+  created_at         DateTime? @db.Timestamp(0)
+  updated_at         DateTime? @default(now()) @db.Timestamp(0)
 }

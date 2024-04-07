@@ -1,5 +1,6 @@
 const controller = {}
 const UploadCloudinaryController = require('../../Helpers/Media/UploadMedia')
+const fs = require('fs');
 
 controller.CreateSelection = async (req, res) => {
 
@@ -14,6 +15,12 @@ controller.CreateSelection = async (req, res) => {
     try{
 
         const id_file = await UploadCloudinaryController.UploadMedia(req_file.tempFilePath)
+
+        fs.unlink(req_file.tempFilePath, err => {
+            if (err) {
+                console.error('Error al eliminar el archivo temporal:', err);
+            }
+        });
 
     }catch(err){
         statusCode  = 500
