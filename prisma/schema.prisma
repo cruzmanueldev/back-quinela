@@ -22,6 +22,7 @@ model parpartidos {
   fecid          Int
   tornid         Int
   parlocal       Int
+  gruid          Int?
   parvisita      Int
   pargoleslocal  Int?
   pargolesvisita Int?
@@ -30,6 +31,10 @@ model parpartidos {
   created_at     DateTime @default(now()) @db.Timestamp(0)
   updated_at     DateTime @default(now()) @db.Timestamp(0)
   parfinalizado  Boolean  @default(false)
+  parlocalsel selselecciones @relation("partidosLocal",fields: [parlocal], references: [selid])
+  parvisitasel selselecciones @relation("partidosVisitante",fields: [parvisita], references: [selid])
+  pargrupos   grugrupos? @relation("parpartidosgru",fields: [gruid], references: [gruid])
+
 }
 
 model selselecciones {
@@ -39,6 +44,9 @@ model selselecciones {
   selimagen      String?   @db.VarChar(255)
   created_at     DateTime? @db.Timestamp(0)
   updated_at     DateTime? @default(now()) @db.Timestamp(0)
+  partidosLocal  parpartidos[] @relation("partidosLocal")
+  partidosVisitante  parpartidos[] @relation("partidosVisitante")
+  pahpartidoshis    pahpartidoshistoricos[] @relation("pahpartidoshis")
 }
 
 
@@ -47,11 +55,26 @@ model usuusuarios {
   usuusuario     String    @db.VarChar(255)
   usucorreo      String    @db.VarChar(255)
   usucontrasenia String    @db.VarChar(255)
-  usuimagen      String    @db.VarChar(255)
+  usuimagen      String?    @db.VarChar(255)
   usutoken       String    @db.VarChar(255)
   created_at     DateTime? @db.Timestamp(0)
   updated_at     DateTime? @default(now()) @db.Timestamp(0)
+}
 
+model pahpartidoshistoricos {
+  pahid           Int         @id @default(autoincrement())
+  pahlocal        String?     @db.VarChar(255)
+  pahvisitante    String?     @db.VarChar(255)
+  selid           Int
+  pahgollocal     String?     @db.VarChar(255)
+  pahresultado    String?     @db.VarChar(255)
+  pahgolvisita    String?     @db.VarChar(255)
+  pahfecha        String?     @db.VarChar(255)
+  pahimagenvisita String?     @db.VarChar(255)
+  pahimagenlocal  String?     @db.VarChar(255)
+  created_at      DateTime?   @db.Timestamp(0)
+  updated_at      DateTime?   @default(now()) @db.Timestamp(0)
+  pahpartidoshis selselecciones @relation("pahpartidoshis",fields: [selid], references: [selid])
 }
 
 model pruprediccionusuarios {
@@ -87,4 +110,13 @@ model tortorneos {
   torcolorsecundario String?   @db.VarChar(255)
   created_at         DateTime? @db.Timestamp(0)
   updated_at         DateTime? @default(now()) @db.Timestamp(0)
+}
+
+
+model grugrupos {
+  gruid             Int       @id @default(autoincrement())
+  grunombre         String    @db.VarChar(255)
+  created_at        DateTime? @db.Timestamp(0)
+  updated_at        DateTime? @default(now()) @db.Timestamp(0)
+  parpartidosgru    parpartidos[] @relation("parpartidosgru")
 }
