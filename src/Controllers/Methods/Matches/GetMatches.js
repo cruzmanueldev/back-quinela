@@ -36,6 +36,7 @@ controller.GetMatchesEM = async (req, res) => {
                     pargoleslocal : true,
                     pargolesvisita : true,
                     parfecha : true,
+                    parfinalizado: true,
                     parlocalsel : {
                         select : {
                             selnombre : true,

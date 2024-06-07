@@ -11,6 +11,7 @@ model fecfechas {
   fecid       Int       @id @default(autoincrement())
   fecnombre   String    @db.VarChar(255)
   tornid      Int
+  fecabierto  Boolean?  @default(false)
   fecmostrar  Boolean   @default(false)
   created_at  DateTime? @db.Timestamp(0)
   updated_at  DateTime  @default(now()) @db.Timestamp(0)
@@ -43,6 +44,7 @@ model selselecciones {
   selabreviacion String    @db.VarChar(255)
   selimagen      String?   @db.VarChar(255)
   created_at     DateTime? @db.Timestamp(0)
+  selconmebol    Boolean   @default(false)
   updated_at     DateTime? @default(now()) @db.Timestamp(0)
   partidosLocal  parpartidos[] @relation("partidosLocal")
   partidosVisitante  parpartidos[] @relation("partidosVisitante")
@@ -93,6 +95,8 @@ model pruprediccionusuarios {
 model puupuntosusuarios {
   puuid              Int       @id @default(autoincrement())
   pruid              Int
+  fecid              Int
+  usuid              Int
   puupuntostotal     Int
   puupuntosmarcador  Int
   puupuntosresultado Int
