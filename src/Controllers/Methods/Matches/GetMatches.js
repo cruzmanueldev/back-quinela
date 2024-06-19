@@ -26,7 +26,6 @@ controller.GetMatchesEM = async (req, res) => {
         })
 
         for await(const dat of data){
-            console.log(dat.fecid)
             const pars = await prisma.parpartidos.findMany({
                 where : {
                     fecid : dat.fecid,

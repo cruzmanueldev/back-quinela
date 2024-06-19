@@ -55,7 +55,6 @@ controller.GetNextMatches = async (req, res) => {
                 },
             }
         })
-        console.log(usu)
 
         for await(const dat of data){
             const pru = await prisma.pruprediccionusuarios.findFirst({

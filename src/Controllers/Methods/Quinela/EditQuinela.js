@@ -16,7 +16,6 @@ controller.EditQuinela = async (req, res) => {
 
     try{
 
-        console.log(formQuinela)
 
     }catch(err){
         statusCode  = 500

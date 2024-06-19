@@ -25,15 +25,12 @@ controller.ValidateUser = async (req, res) => {
                 usutoken    : true
             }
         })
-        console.log(data)
         if(data){
             data = {
                 ...data,
                 tornid      : tornid,
                 tornombre   : tornid == 2 ? 'EM' : 'CA'
             }
-            console.log("datados")
-            console.log(data);
         }else{
             statusCode = 500
             message    = 'Su sesion ha expirado'
