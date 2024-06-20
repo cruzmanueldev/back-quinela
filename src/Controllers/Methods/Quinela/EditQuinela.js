@@ -33,14 +33,22 @@ controller.EditQuinela = async (req, res) => {
                 }
             })
 
-            const goalhome = parseInt(form.goalhome)
-            const goalaway = parseInt(form.goalaway)
+            let goalhome = parseInt(form.goalhome)
+            let goalaway = parseInt(form.goalaway)
 
             if(prue){
+
+                if(!form.goalaway){
+                    goalaway = prue.prugolesvisita
+                }
+
+                if(!form.goalhome){
+                    goalhome = prue.goalhome
+                }
+
                 await prisma.pruprediccionusuarios.update({
                     where : {
-                        usuid : usu.usuid,
-                        partid : form.partid
+                        pruid : prue.pruid
                     },
                     data : {
                         prugoleslocal : goalhome,
