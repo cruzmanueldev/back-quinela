@@ -29,7 +29,7 @@ controller.LoginUser = async (req, res) => {
 
         const passwordMatch = await bcrypt.compare(usucontrasena, user.usucontrasenia)
 
-        if(!passwordMatch){
+        if(passwordMatch){
             const token = crypto.randomBytes(32).toString('hex')
 
             await prisma.usuusuarios.update({
