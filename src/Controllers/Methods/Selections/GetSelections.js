@@ -24,6 +24,8 @@ controller.GetSelections = async (req, res) => {
         message     = 'Ha ocurrido un error al obtener las selecciones'
         console.log(err)
     }finally{
+        
+        await prisma.$disconnect()
         res.status(statusCode)
             .json({
                 response,

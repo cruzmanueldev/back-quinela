@@ -37,6 +37,8 @@ controller.CreateUser = async ( req, res ) => {
         message     = 'Ha ocurrido un error al crear al usuario'
         statusCode  = 500
     }finally{
+        
+        await prisma.$disconnect()
         return res.status(statusCode)
                 .json({
                     response,

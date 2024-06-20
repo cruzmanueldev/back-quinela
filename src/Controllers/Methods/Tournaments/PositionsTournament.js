@@ -121,14 +121,6 @@ controller.PositionsTournament = async (req, res) => {
 
             data = dataGroups
 
-            // for await( const group of groups){
-            //     console.log(group)
-            //     const teams = await prisma.parpartidos.findMany({
-            //         where : {
-
-            //         }
-            //     })
-            // }
         }else{
             const teams = await prisma.selselecciones.findMany({
                 where : {
@@ -269,6 +261,8 @@ controller.PositionsTournament = async (req, res) => {
         message     = 'Ha ocurrido un error al obtener la tabla de posiciones'
         console.log(err)
     }finally{
+        
+        await prisma.$disconnect()
         res.status(statusCode)
             .json({
                 response,

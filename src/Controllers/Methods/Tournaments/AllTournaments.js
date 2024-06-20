@@ -28,6 +28,8 @@ controller.AllTournaments = async (req, res) => {
         message     = 'Ha ocurrido un error al crear la seleccion'
         console.log(err)
     }finally{
+        
+        await prisma.$disconnect()
         res.status(statusCode)
             .json({
                 response,
