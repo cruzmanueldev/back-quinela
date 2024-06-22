@@ -27,6 +27,7 @@ model parpartidos {
   parvisita      Int
   pargoleslocal  Int?
   pargolesvisita Int?
+  parbloqueado   Boolean? @default(false) 
   parganador     Int?
   parfecha       DateTime?
   created_at     DateTime @default(now()) @db.Timestamp(0)

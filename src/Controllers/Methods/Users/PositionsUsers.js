@@ -32,6 +32,8 @@ controller.PositionsUsers = async (req, res) => {
             dat['user'] = user.usuusuario
         }
 
+        data.sort((a, b) => b._sum.puupuntostotal - a._sum.puupuntostotal);
+
     }catch(err){
 
         messageDev = err.toString()

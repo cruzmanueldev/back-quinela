@@ -39,6 +39,7 @@ controller.GetNextMatches = async (req, res) => {
             select : {
                 parfecha    : true,
                 partid      : true,
+                parbloqueado: true,
                 parlocalsel : {
                     select : {
                         selnombre : true,
