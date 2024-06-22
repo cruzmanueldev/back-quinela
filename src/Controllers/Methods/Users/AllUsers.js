@@ -19,7 +19,7 @@ controller.AllUsers = async (req, res) => {
         })
 
     }catch(err){
-
+        console.log(err)
         messageDev = err.toString()
         statusCode = 500
         message    = 'Ha ocurrido un error al obtener a los usuarios'
