@@ -7,7 +7,14 @@ const path = require('path')
 const port = 3001
 
 const app = express()
-app.use(cors())
+app.use(cors(
+    {
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
+        credentials: true
+    }
+))
 
 
 app.use(function(req, res, next){
