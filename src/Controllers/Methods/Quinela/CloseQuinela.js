@@ -12,7 +12,6 @@ controller.CloseQuinela = async (req, res) => {
         req_pargoalaway
     } = req.body
 
-    let data = []
     let statusCode  = 200
     let response    = true
     let message     = 'La quinela se ha cerrado con exito'

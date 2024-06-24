@@ -37,20 +37,25 @@ controller.GetNextMatches = async (req, res) => {
                 fecid : fec.fecid,
             },
             select : {
-                parfecha    : true,
-                partid      : true,
-                parbloqueado: true,
+                parfecha        : true,
+                partid          : true,
+                parbloqueado    : true,
+                parfinalizado   : true,
+                pargoleslocal   : true,
+                pargolesvisita  : true,
                 parlocalsel : {
                     select : {
-                        selnombre : true,
-                        selimagen : true,
+                        selid       : true,
+                        selnombre   : true,
+                        selimagen   : true,
                         selabreviacion : true
                     }
                 },
                 parvisitasel : {
                     select : {
-                        selnombre : true,
-                        selimagen : true, 
+                        selid       : true,
+                        selnombre   : true,
+                        selimagen   : true, 
                         selabreviacion : true
                     }
                 },

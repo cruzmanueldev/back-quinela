@@ -51,7 +51,6 @@ controller.LoginUser = async (req, res) => {
             response    = false
             statusCode  = 500
             message     = 'La contrasena es incorrecta'
-    
         }
     }catch(err){
         console.log(err)
