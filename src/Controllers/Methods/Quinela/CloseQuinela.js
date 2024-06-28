@@ -18,6 +18,45 @@ controller.CloseQuinela = async (req, res) => {
 
     try{
 
+        const ptosPrev = await prisma.puupuntosusuarios.groupBy({
+            by : ['usuid'],
+            _sum : {
+                puupuntostotal : true,
+            },
+        })
+
+        ptosPrev.sort((a, b) => b._sum.puupuntostotal - a._sum.puupuntostotal);
+
+        let posUser = 1
+        for await( const pprev of ptosPrev){
+
+            const phue = await prisma.phupuntoshistorialusuarios.findFirst({
+                where : {
+                    usuid : pprev.usuid
+                }
+            })
+
+            if(phue){
+                await prisma.phupuntoshistorialusuarios.update({
+                    where : {
+                        phuid : phue.phuid
+                    },
+                    data : {
+                        phuposicion : posUser
+                    }
+                })
+            }else{
+                await prisma.phupuntoshistorialusuarios.create({
+                    data : {
+                        usuid : pprev.usuid,
+                        phuposicion : posUser
+                    }
+                })
+            }
+
+            posUser = posUser + 1
+        }
+
         const winId = req_pargoalhome > req_pargoalaway 
                             ? req_selhome 
                             : req_pargoalaway > req_pargoalhome 
