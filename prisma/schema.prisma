@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model fecfechas {
+  fecid       Int       @id @default(autoincrement())
+  fecnombre   String    @db.VarChar(255)
+  tornid      Int
+  fecabierto  Boolean?  @default(false)
+  fecmostrar  Boolean   @default(false)
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime  @default(now()) @db.Timestamp(0)
+
+}
+
+model phupuntoshistorialusuarios {
+  phuid Int      @id @default(autoincrement())
+  usuid          Int
+  phuposicion Int 
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime  @default(now()) @db.Timestamp(0)
+  phuusuusuarios   usuusuarios? @relation("phuusuusuarios",fields: [usuid], references: [usuid])
+}
+
+model parpartidos {
+  partid         Int      @id @default(autoincrement()) 
+  fecid          Int
+  tornid         Int
+  parlocal       Int
+  gruid          Int?
+  parvisita      Int
+  pargoleslocal  Int?
+  pargolesvisita Int?
+  parbloqueado   Boolean? @default(false) 
+  parganador     Int?
+  parfecha       DateTime?
+  created_at     DateTime @default(now()) @db.Timestamp(0)
+  updated_at     DateTime @default(now()) @db.Timestamp(0)
+  parfinalizado  Boolean  @default(false)
+  parlocalsel selselecciones @relation("partidosLocal",fields: [parlocal], references: [selid])
+  parvisitasel selselecciones @relation("partidosVisitante",fields: [parvisita], references: [selid])
+  pargrupos   grugrupos? @relation("parpartidosgru",fields: [gruid], references: [gruid])
+  pruprediccionusuarios    pruprediccionusuarios[] @relation("pruparpartidos")
+
+}
+
+model selselecciones {
+  selid          Int       @id @default(autoincrement())
+  selnombre      String    @db.VarChar(255)
+  selabreviacion String    @db.VarChar(255)
+  selimagen      String?   @db.VarChar(255)
+  created_at     DateTime? @db.Timestamp(0)
+  selconmebol    Boolean   @default(false)
+  updated_at     DateTime? @default(now()) @db.Timestamp(0)
+  partidosLocal  parpartidos[] @relation("partidosLocal")
+  partidosVisitante  parpartidos[] @relation("partidosVisitante")
+  pahpartidoshis    pahpartidoshistoricos[] @relation("pahpartidoshis")
+}
+
+
+model usuusuarios {
+  usuid          Int       @id @default(autoincrement())
+  usuusuario     String    @db.VarChar(255)
+  usucorreo      String    @db.VarChar(255)
+  usucontrasenia String    @db.VarChar(255)
+  usuimagen      String?    @db.VarChar(255)
+  usutoken       String    @db.VarChar(255)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @default(now()) @db.Timestamp(0)
+  phuusuusuarios    phupuntoshistorialusuarios[] @relation("phuusuusuarios")
+
+}
+
+model pahpartidoshistoricos {
+  pahid           Int         @id @default(autoincrement())
+  pahlocal        String?     @db.VarChar(255)
+  pahvisitante    String?     @db.VarChar(255)
+  selid           Int
+  pahgollocal     String?     @db.VarChar(255)
+  pahresultado    String?     @db.VarChar(255)
+  pahgolvisita    String?     @db.VarChar(255)
+  pahfecha        String?     @db.VarChar(255)
+  pahimagenvisita String?     @db.VarChar(255)
+  pahimagenlocal  String?     @db.VarChar(255)
+  created_at      DateTime?   @db.Timestamp(0)
+  updated_at      DateTime?   @default(now()) @db.Timestamp(0)
+  pahpartidoshis selselecciones @relation("pahpartidoshis",fields: [selid], references: [selid])
+}
+
+model pruprediccionusuarios {
+  pruid          Int       @id @default(autoincrement())
+  usuid          Int
+  partid         Int
+  prugoleslocal  Int
+  prugolesvisita Int
+  pruganador     Int?
+  pruabierto     Boolean   @default(false)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @default(now()) @db.Timestamp(0)
+  pruparpartidos parpartidos @relation("pruparpartidos",fields: [partid], references: [partid])
+}
+
+model puupuntosusuarios {
+  puuid              Int       @id @default(autoincrement())
+  pruid              Int
+  fecid              Int
+  usuid              Int
+  puupuntostotal     Int
+  puupuntosmarcador  Int
+  puupuntosresultado Int
+  puupuntosgoles     Int
+  created_at         DateTime? @db.Timestamp(0)
+  updated_at         DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model tortorneos {
+  tornid             Int       @id @default(autoincrement())
+  tortorneo          String    @db.VarChar(255)
+  torimagen          String?   @db.VarChar(255)
+  torbanner          String?   @db.VarChar(255)
+  torcolorprincipal  String?   @db.VarChar(255)
+  torcolorsecundario String?   @db.VarChar(255)
+  created_at         DateTime? @db.Timestamp(0)
+  updated_at         DateTime? @default(now()) @db.Timestamp(0)
+}
+
+
+model grugrupos {
+  gruid             Int       @id @default(autoincrement())
+  grunombre         String    @db.VarChar(255)
+  created_at        DateTime? @db.Timestamp(0)
+  updated_at        DateTime? @default(now()) @db.Timestamp(0)
+  parpartidosgru    parpartidos[] @relation("parpartidosgru")
+}
