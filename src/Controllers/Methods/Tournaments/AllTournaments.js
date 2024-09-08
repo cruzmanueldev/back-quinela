@@ -12,9 +12,6 @@ controller.AllTournaments = async (req, res) => {
     try{
 
         data = await prisma.tortorneos.findMany({
-            where : {
-                tornid : 1
-            }
         })
 
         data.map(dat => {

@@ -4,6 +4,10 @@ const prisma = new PrismaClient()
 
 controller.GetStatistics = async (req, res) => {
 
+    const {
+        req_tornid
+    } = req.body
+
     let statusCode  = 200
     let response    = true
     let message     = 'Las estadisticas de la quinela se han obtenido con exito'
@@ -14,7 +18,7 @@ controller.GetStatistics = async (req, res) => {
         const fec = await prisma.fecfechas.findFirst({
             where : {
                 fecabierto  : true,
-                tornid      : 1
+                tornid      : req_tornid
             }
         })
 
