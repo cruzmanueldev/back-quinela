@@ -21,8 +21,8 @@ controller.GetHistoryUser = async (req, res) => {
                 usuid : req_usuid,
                 pruparpartidos : {
                     parfinalizado   : true,
-                    tornid : req_tornid
-                }
+                    tornid : req_tornid                
+		}
             },
             select : {
                 prugoleslocal   : true,

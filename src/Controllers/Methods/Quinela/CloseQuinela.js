@@ -10,7 +10,7 @@ controller.CloseQuinela = async (req, res) => {
         req_selaway,
         req_pargoalhome,
         req_pargoalaway,
-        req_tornid
+       req_tornid
     } = req.body
 
     let statusCode  = 200

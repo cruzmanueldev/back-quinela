@@ -38,7 +38,6 @@ controller.PositionsUsers = async (req, res) => {
                 }
             })
 
-
             const user = await prisma.usuusuarios.findFirst({
                 where : {
                     usuid : dat.usuid
@@ -46,6 +45,7 @@ controller.PositionsUsers = async (req, res) => {
             })
 
             dat['user'] = user.usuusuario
+            dat['prevPos'] = prevPos.phuposicion
             if(prevPos){
                 dat['prevPos'] = prevPos.phuposicion   
             }
