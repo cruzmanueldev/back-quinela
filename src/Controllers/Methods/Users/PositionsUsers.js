@@ -3,6 +3,10 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 controller.PositionsUsers = async (req, res) => {
+
+    const {
+        req_tornid
+    } = req.body
     
     let response    = true
     let message     = 'Se obtuvo la tabla de posiciones de los usuarios con exito'
@@ -14,6 +18,9 @@ controller.PositionsUsers = async (req, res) => {
 
         data = await prisma.puupuntosusuarios.groupBy({
             by : ['usuid'],
+            where : {
+                tornid : req_tornid
+            },
             _sum : {
                 puupuntostotal : true,
                 puupuntosmarcador : true,
@@ -26,9 +33,11 @@ controller.PositionsUsers = async (req, res) => {
 
             const prevPos = await prisma.phupuntoshistorialusuarios.findFirst({
                 where : {
-                    usuid : dat.usuid
+                    usuid : dat.usuid,
+                    tornid : req_tornid
                 }
             })
+
 
             const user = await prisma.usuusuarios.findFirst({
                 where : {
@@ -37,7 +46,9 @@ controller.PositionsUsers = async (req, res) => {
             })
 
             dat['user'] = user.usuusuario
-            dat['prevPos'] = prevPos.phuposicion
+            if(prevPos){
+                dat['prevPos'] = prevPos.phuposicion   
+            }
         }
 
         data.sort((a, b) => b._sum.puupuntostotal - a._sum.puupuntostotal);

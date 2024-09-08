@@ -16,11 +16,14 @@ model fecfechas {
   created_at  DateTime? @db.Timestamp(0)
   updated_at  DateTime  @default(now()) @db.Timestamp(0)
 
+
+  parpartidos parpartidos[] @relation("parpartidosfec")
 }
 
 model phupuntoshistorialusuarios {
   phuid Int      @id @default(autoincrement())
   usuid          Int
+  tornid         Int
   phuposicion Int 
   created_at  DateTime? @db.Timestamp(0)
   updated_at  DateTime  @default(now()) @db.Timestamp(0)
@@ -45,6 +48,8 @@ model parpartidos {
   parlocalsel selselecciones @relation("partidosLocal",fields: [parlocal], references: [selid])
   parvisitasel selselecciones @relation("partidosVisitante",fields: [parvisita], references: [selid])
   pargrupos   grugrupos? @relation("parpartidosgru",fields: [gruid], references: [gruid])
+  parfecid   fecfechas? @relation("parpartidosfec",fields: [fecid], references: [fecid])
+
   pruprediccionusuarios    pruprediccionusuarios[] @relation("pruparpartidos")
 
 }
@@ -109,6 +114,7 @@ model puupuntosusuarios {
   puuid              Int       @id @default(autoincrement())
   pruid              Int
   fecid              Int
+  tornid             Int
   usuid              Int
   puupuntostotal     Int
   puupuntosmarcador  Int

@@ -6,6 +6,7 @@ controller.GetHistoryUser = async (req, res) => {
 
     const {
         req_usuid,
+        req_tornid
     } = req.body
 
     let data = []
@@ -20,6 +21,7 @@ controller.GetHistoryUser = async (req, res) => {
                 usuid : req_usuid,
                 pruparpartidos : {
                     parfinalizado   : true,
+                    tornid : req_tornid
                 }
             },
             select : {
@@ -45,6 +47,11 @@ controller.GetHistoryUser = async (req, res) => {
                                 selabreviacion : true
                             }
                         },
+                        parfecid : {
+                            select : {
+                                fecnombre : true
+                            }
+                        }
                     }
                 }
             }

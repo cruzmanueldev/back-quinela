@@ -9,7 +9,8 @@ controller.CloseQuinela = async (req, res) => {
         req_selhome,
         req_selaway,
         req_pargoalhome,
-        req_pargoalaway
+        req_pargoalaway,
+        req_tornid
     } = req.body
 
     let statusCode  = 200
@@ -20,6 +21,9 @@ controller.CloseQuinela = async (req, res) => {
 
         const ptosPrev = await prisma.puupuntosusuarios.groupBy({
             by : ['usuid'],
+            where : {
+                tornid : req_tornid
+            },
             _sum : {
                 puupuntostotal : true,
             },
@@ -32,14 +36,15 @@ controller.CloseQuinela = async (req, res) => {
 
             const phue = await prisma.phupuntoshistorialusuarios.findFirst({
                 where : {
-                    usuid : pprev.usuid
+                    usuid : pprev.usuid,
+                    tornid : req_tornid
                 }
             })
 
             if(phue){
                 await prisma.phupuntoshistorialusuarios.update({
                     where : {
-                        phuid : phue.phuid
+                        phuid : phue.phuid,
                     },
                     data : {
                         phuposicion : posUser
@@ -49,6 +54,7 @@ controller.CloseQuinela = async (req, res) => {
                 await prisma.phupuntoshistorialusuarios.create({
                     data : {
                         usuid : pprev.usuid,
+                        tornid : req_tornid,
                         phuposicion : posUser
                     }
                 })
@@ -100,6 +106,7 @@ controller.CloseQuinela = async (req, res) => {
                 fecid : paru.fecid,
                 puupuntostotal : ptosTotal,
                 puupuntosmarcador : ptosmarcador,
+                tornid  : req_tornid,
                 puupuntosresultado : ptosresultado,
                 puupuntosgoles : ptosglocal + ptosgvisita
             })
