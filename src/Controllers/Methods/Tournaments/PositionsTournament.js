@@ -142,15 +142,18 @@ controller.PositionsTournament = async (req, res) => {
                         tornid : tornid
                     }
                 })
-    
                 tem['pj'] = matches.filter(mat  => mat.parfinalizado == true).length
                 tem['pg'] = matches.filter(mat  => mat.parganador == tem.selid).length
                 tem['pp'] = matches.filter(mat  => mat.parganador != tem.selid && mat.parganador != null && mat.parfinalizado == true).length
+
                 tem['pe'] = tem['pj'] - tem['pg'] - tem['pp']
                 const ptsWin    = (matches.filter(mat  => mat.parganador == tem.selid && mat.parfinalizado == true).length)*3
                 const ptsDraw   = (matches.filter(mat  => mat.parganador == null && mat.parfinalizado == true).length)
                 tem['ptos'] = ptsWin + ptsDraw
-    
+
+                if(tem.selid == 6){
+                    tem['ptos'] = tem['ptos'] - 3
+                }
                 const gf = matches.reduce((acc, match) => {
                     if (match.parlocal === tem.selid) {
                       return acc + match.pargoleslocal;
