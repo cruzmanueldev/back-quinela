@@ -176,7 +176,8 @@ controller.PositionsTournament = async (req, res) => {
                 
                 tem['dg']   = gf+':'+gc
                 tem['dfg']  = gf - gc
-                tem['gf']   = gf - gc
+                tem['gf']   = gf
+                tem['gc']   = gc
     
                 tem['lastMatches'] = await prisma.parpartidos.findMany({
                     where : {
@@ -253,7 +254,7 @@ controller.PositionsTournament = async (req, res) => {
                         return b.gf - a.gf;
                     }
                 }
-            });
+            })
             data = teams
 
         }
